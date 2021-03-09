@@ -101,7 +101,8 @@ class RecipeSpider(scrapy.Spider):
         dictionary['notes'] = notes
         dictionary['nutrition'] = response.xpath('/html/body/div[2]/div/main/div[1]/div[2]/div[1]/div[2]/div[2]/section[2]/div/div[2]/text()').get().strip()
 
-        img_link = response.xpath('/html/body/div[2]/div/main/div[1]/div[2]/div[1]/div[2]/div[2]/div[1]/div[1]/div[2]/div/div/a/div/div[1]/img/@src').getall()
+        element = response.xpath('/html/body/div[2]/div/main/div[1]/div[2]/div[1]/div[2]/div[2]/div[1]/div[1]')
+        img_link = response.xpath('/html/body/div[2]/div/main/div[1]/div[2]/div[1]/div[2]/div[2]/div[1]/div[1]').xpath('//div[starts-with(@data-src,"https://imagesvc.meredithcorp.io/v3/mm/image")]/@data-src').getall()
         dictionary['img_link'] = img_link
         time.sleep(1)
         yield dictionary
